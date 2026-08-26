@@ -57,6 +57,9 @@ export const getStyles = (colors: typeof lightColors) => StyleSheet.create({
     paddingVertical: Theme.spacing.lg,
     backgroundColor: colors.background2,
   },
+  listEmpty: {
+    flexGrow: 1,
+  },
   row: {
     justifyContent: 'flex-start',
   },

@@ -1,6 +1,29 @@
 import { BOOK_STRINGS } from '@/features/books/constants';
+import i18n from '@/services/i18n';
 
 describe('BOOK_STRINGS', () => {
+  afterEach(async () => {
+    await i18n.changeLanguage('en');
+  });
+
+  it('translates dynamically when language changes', async () => {
+    await i18n.changeLanguage('es');
+    expect(BOOK_STRINGS.searchPlaceholder).toBe('Buscar');
+    expect(BOOK_STRINGS.errorTitle).toBe('Error');
+
+    await i18n.changeLanguage('hi');
+    expect(BOOK_STRINGS.searchPlaceholder).toBe('खोजें');
+    expect(BOOK_STRINGS.errorTitle).toBe('त्रुटि');
+
+    await i18n.changeLanguage('ta');
+    expect(BOOK_STRINGS.searchPlaceholder).toBe('தேடு');
+    expect(BOOK_STRINGS.errorTitle).toBe('பிழை');
+
+    await i18n.changeLanguage('en');
+    expect(BOOK_STRINGS.searchPlaceholder).toBe('Search');
+    expect(BOOK_STRINGS.errorTitle).toBe('Error');
+  });
+
   it('headerTitle defined', () => {
     expect(BOOK_STRINGS.headerTitle).toBeTruthy();
   });

@@ -1,2 +1,1 @@
-// Placeholder for shared services
-export {};
+export { default as i18n } from './i18n';

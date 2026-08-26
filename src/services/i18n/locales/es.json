@@ -1,0 +1,12 @@
+{
+  "headerTitle": "Proyecto\nGutenberg",
+  "headerSubtitle": "Un sitio web de catalogación social que le permite buscar libremente en su base de datos de libros, anotaciones y reseñas.",
+  "searchPlaceholder": "Buscar",
+  "noBooksFound": "No se encontraron libros",
+  "unknownAuthor": "Autor Desconocido",
+  "errorTitle": "Error",
+  "errorOpenLink": "No se pudo abrir el enlace del libro",
+  "errorNoVersion": "No hay versión disponible para visualizar",
+  "failedToFetch": "Error al obtener libros",
+  "noConnection": "Sin conexión a internet y sin datos en caché."
+}

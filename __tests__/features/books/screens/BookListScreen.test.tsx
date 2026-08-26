@@ -1,9 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import booksReducer from '@/features/books/store/booksSlice';
-import { BOOK_GENRES, BOOK_STRINGS } from '@/features/books/constants';
+import { BOOK_STRINGS } from '@/features/books/constants';
 import BookListScreen from '@/features/books/screens/BookListScreen';
 
 jest.mock('react-native-vector-icons/Ionicons', () => 'Icon');

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import AppNavigator from '@/navigation/AppNavigator';
 import { useAppTheme } from '@/ui/theme';
 import { store } from '@/store';
+import '@/services/i18n';
 
 export default function App() {
   const { colors, isDark } = useAppTheme();

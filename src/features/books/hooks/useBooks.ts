@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Linking, Alert } from 'react-native';
+import { Linking } from 'react-native';
 import { RootState, AppDispatch } from '@/store';
 import { fetchBooks, clearBooks } from '@/features/books/store';
-import { BOOK_STRINGS } from '@/features/books/constants';
 import { Book } from '@/features/books/types';
+import { useTranslation } from 'react-i18next';
 
 export const useBooks = (genre: string) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -72,19 +73,19 @@ export const useBooks = (genre: string) => {
 
       if (targetUrl) {
         Linking.openURL(targetUrl).catch(() => {
-          setModalMessage(BOOK_STRINGS.errorOpenLink);
+          setModalMessage(t('errorOpenLink'));
           setModalVisible(true);
         });
       } else {
-        setModalMessage(BOOK_STRINGS.errorNoVersion);
+        setModalMessage(t('errorNoVersion'));
         setModalVisible(true);
       }
     } catch (err) {
       console.error('Error handling book press:', err);
-      setModalMessage(BOOK_STRINGS.errorOpenLink);
+      setModalMessage(t('errorOpenLink'));
       setModalVisible(true);
     }
-  }, []);
+  }, [t]);
 
   return {
     books,

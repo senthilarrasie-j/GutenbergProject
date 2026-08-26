@@ -47,7 +47,7 @@ const buildStore = (books: any[] = [], extra: Partial<any> = {}) =>
 const wrapper =
   (store: ReturnType<typeof buildStore>) =>
   ({ children }: { children: React.ReactNode }) =>
-    React.createElement(Provider, { store }, children);
+    React.createElement(Provider, { store, children });
 
 const mockBook = {
   id: 1,

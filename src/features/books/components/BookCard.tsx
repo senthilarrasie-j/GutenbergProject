@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import {
   TouchableOpacity,
-  View,
   Image,
   Text,
   useWindowDimensions,

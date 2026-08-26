@@ -1,9 +1,9 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    "baseUrl": ".",
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

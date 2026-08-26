@@ -18,7 +18,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
 import { useBooks } from '@/features/books/hooks';
 import { BookCard, Snackbar, CustomModal } from '@/features/books/components';
-import { BOOK_STRINGS } from '@/features/books/constants';
+import { useTranslation } from 'react-i18next';
 
 type BookListScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -29,6 +29,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
   route,
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { genre } = route.params || { genre: 'Fiction' };
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -90,7 +91,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
       return (
         <View style={styles.center}>
           <Text style={styles.emptyText} allowFontScaling={false}>
-            {BOOK_STRINGS.noBooksFound}
+            {t('noBooksFound')}
           </Text>
         </View>
       );
@@ -135,7 +136,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         />
         <TextInput
           style={styles.searchInput}
-          placeholder={BOOK_STRINGS.searchPlaceholder}
+          placeholder={t('searchPlaceholder')}
           placeholderTextColor={colors.greyMedium}
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -167,7 +168,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         columnWrapperStyle={books.length > 0 ? styles.row : undefined}
         contentContainerStyle={[
           styles.list,
-          books.length === 0 && { flexGrow: 1 },
+          books.length === 0 && styles.listEmpty,
         ]}
         ListEmptyComponent={renderEmpty}
         onEndReached={handleLoadMore}
@@ -190,7 +191,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
 
       <CustomModal
         visible={modalVisible}
-        title={BOOK_STRINGS.errorTitle}
+        title={t('errorTitle')}
         message={modalMessage}
         onClose={() => setModalVisible(false)}
       />

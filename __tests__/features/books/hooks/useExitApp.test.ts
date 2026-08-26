@@ -37,7 +37,7 @@ describe('useExitApp', () => {
 
   it('back press sets exitModalVisible=true', async () => {
     const { result } = await renderHook(() => useExitApp());
-    const backAction = mockAddEventListener.mock.calls[0][1];
+    const backAction = (mockAddEventListener as any).mock.calls[0][1];
     await act(async () => {
       backAction();
     });
@@ -46,7 +46,7 @@ describe('useExitApp', () => {
 
   it('handleCancelExit sets exitModalVisible=false', async () => {
     const { result } = await renderHook(() => useExitApp());
-    const backAction = mockAddEventListener.mock.calls[0][1];
+    const backAction = (mockAddEventListener as any).mock.calls[0][1];
     await act(async () => { backAction(); });
     await act(async () => { result.current.handleCancelExit(); });
     expect(result.current.exitModalVisible).toBe(false);

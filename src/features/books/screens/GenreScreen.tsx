@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   FlatList,
   useWindowDimensions,
 } from 'react-native';
@@ -11,10 +10,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store';
 import { getStyles } from '@/features/books/screens/GenreScreen.styles';
 import { setSelectedGenre } from '@/features/books/store';
-import { BOOK_STRINGS } from '@/features/books/constants';
 import { useExitApp } from '@/features/books/hooks';
 import { CustomModal, GenreCard } from '@/features/books/components';
 import { useAppTheme } from '@/ui/theme';
+import { useTranslation } from 'react-i18next';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
@@ -29,6 +28,7 @@ interface Props {
 }
 
 const GenreScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const genres = useSelector((state: RootState) => state.books.genres);
   const { exitModalVisible, handleExitApp, handleCancelExit } = useExitApp();
@@ -45,10 +45,10 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
   const renderHeader = () => (
     <View style={styles.header}>
       <Text style={styles.title} allowFontScaling={false}>
-        {BOOK_STRINGS.headerTitle}
+        {t('headerTitle')}
       </Text>
       <Text style={styles.subtitle} allowFontScaling={false}>
-        {BOOK_STRINGS.headerSubtitle}
+        {t('headerSubtitle')}
       </Text>
     </View>
   );

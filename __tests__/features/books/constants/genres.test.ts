@@ -43,11 +43,11 @@ describe('GENRE_ICONS', () => {
   });
 
   it('has icon for fiction', () => {
-    expect(GENRE_ICONS['fiction']).toBeDefined();
+    expect(GENRE_ICONS.fiction).toBeDefined();
   });
 
   it('has icon for drama', () => {
-    expect(GENRE_ICONS['drama']).toBeDefined();
+    expect(GENRE_ICONS.drama).toBeDefined();
   });
 
   it('keys match genre queries from BOOK_GENRES', () => {
