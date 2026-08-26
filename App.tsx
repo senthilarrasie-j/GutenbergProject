@@ -9,7 +9,7 @@ import { store } from '@/store';
 import '@/services/i18n';
 
 export default function App() {
-  const { colors, isDark } = useAppTheme();
+  const { colors } = useAppTheme();
 
   const NavigationTheme = {
     ...DefaultTheme,
@@ -26,8 +26,6 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        {/* <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} /> */}
-
         <StatusBar barStyle={'dark-content'} />
         <NavigationContainer theme={NavigationTheme}>
           <AppNavigator />
