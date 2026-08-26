@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '@/ui/theme';
+import { Theme, lightColors } from '@/ui/theme';
 
-export const styles = StyleSheet.create({
+export const getStyles = (colors: typeof lightColors) => StyleSheet.create({
   bookCard: {
     flex: 1 / 3,
     marginHorizontal: Theme.spacing.sm,
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     aspectRatio: 2 / 3,
     width: '100%',
     borderRadius: Theme.spacing.sm,
-    backgroundColor: Theme.colors.greyLight,
+    backgroundColor: colors.greyLight,
     marginBottom: Theme.spacing.sm,
     // iOS shadow
     shadowColor: 'rgb(211, 209, 238)',
@@ -29,13 +29,14 @@ export const styles = StyleSheet.create({
   bookTitle: {
     fontSize: Theme.fontSizes.xs,
     fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyDark,
+    color: colors.greyDark,
     lineHeight: 14,
     marginBottom: 2,
   },
   bookAuthor: {
     fontSize: Theme.fontSizes.xs,
     fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyMedium,
+    color: colors.greyMedium,
   },
 });
+

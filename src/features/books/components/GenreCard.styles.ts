@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '@/ui/theme';
+import { Theme, lightColors } from '@/ui/theme';
 
-export const styles = StyleSheet.create({
+export const getStyles = (colors: typeof lightColors) => StyleSheet.create({
   card: {
-    backgroundColor: Theme.colors.white,
+    backgroundColor: colors.white,
     height: Theme.spacing.giant,
     borderRadius: Theme.spacing.xs,
     flexDirection: 'row',
@@ -30,11 +30,11 @@ export const styles = StyleSheet.create({
   cardText: {
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.greyDark,
+    color: colors.greyDark,
   },
   arrow: {
     fontSize: Theme.fontSizes.lg,
-    color: Theme.colors.primary,
+    color: colors.primary,
     fontFamily: Theme.fonts.semiBold,
   },
   landscapeCard: {
@@ -43,3 +43,4 @@ export const styles = StyleSheet.create({
     marginHorizontal: Theme.spacing.xs,
   },
 });
+

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,11 +9,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store';
-import { styles } from './GenreScreen.styles';
+import { getStyles } from '@/features/books/screens/GenreScreen.styles';
 import { setSelectedGenre } from '@/features/books/store';
 import { BOOK_STRINGS } from '@/features/books/constants';
 import { useExitApp } from '@/features/books/hooks';
 import { CustomModal, GenreCard } from '@/features/books/components';
+import { useAppTheme } from '@/ui/theme';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
@@ -33,6 +34,8 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
   const { exitModalVisible, handleExitApp, handleCancelExit } = useExitApp();
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => getStyles(colors), [colors]);
 
   const handleGenreSelect = (genreTitle: string) => {
     dispatch(setSelectedGenre(genreTitle));

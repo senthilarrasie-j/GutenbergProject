@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal } from 'react-native';
-import { Theme } from '@/ui/theme';
+import { Theme, useAppTheme, lightColors } from '@/ui/theme';
 
 export interface ModalButton {
   text: string;
@@ -23,6 +23,9 @@ export const CustomModal: React.FC<CustomModalProps> = ({
   onClose,
   buttons,
 }) => {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => getStyles(colors), [colors]);
+
   const modalButtons = buttons || [
     { text: 'Close', onPress: onClose, type: 'primary' as const },
   ];
@@ -81,7 +84,7 @@ export const CustomModal: React.FC<CustomModalProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (colors: typeof lightColors) => StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -90,11 +93,11 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '80%',
-    backgroundColor: Theme.colors.white,
+    backgroundColor: colors.white,
     borderRadius: Theme.spacing.sm,
     padding: Theme.spacing.xxl,
     alignItems: 'center',
-    shadowColor: Theme.colors.black,
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -103,13 +106,13 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: Theme.fontSizes.xl,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.primary,
+    color: colors.primary,
     marginBottom: Theme.spacing.md,
   },
   modalText: {
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyDark,
+    color: colors.greyDark,
     textAlign: 'center',
     marginBottom: Theme.spacing.xl,
     lineHeight: 22,
@@ -134,19 +137,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: Theme.spacing.xxl,
   },
   cancelButton: {
-    backgroundColor: Theme.colors.greyLight,
+    backgroundColor: colors.greyLight,
   },
   confirmButton: {
-    backgroundColor: Theme.colors.primary,
+    backgroundColor: colors.primary,
   },
   cancelButtonText: {
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.greyDark,
+    color: colors.greyDark,
   },
   confirmButtonText: {
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.white,
+    color: colors.white,
   },
 });

@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '@/ui/theme';
+import { Theme, lightColors } from '@/ui/theme';
 
-export const styles = StyleSheet.create({
+export const getStyles = (colors: typeof lightColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.colors.white,
+    backgroundColor: colors.white,
   },
   header: {
     flexDirection: 'row',
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Theme.spacing.xxl,
     paddingTop: Theme.spacing.lg,
     paddingBottom: Theme.spacing.lg,
-    backgroundColor: Theme.colors.white,
+    backgroundColor: colors.white,
   },
   backButton: {
     marginRight: Theme.spacing.md,
@@ -20,17 +20,17 @@ export const styles = StyleSheet.create({
   backArrow: {
     fontSize: Theme.fontSizes.largeTitle,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.primary,
+    color: colors.primary,
   },
   title: {
     fontSize: Theme.fontSizes.title,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.primary,
+    color: colors.primary,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Theme.colors.greyLight,
+    backgroundColor: colors.greyLight,
     borderRadius: Theme.spacing.xs,
     marginHorizontal: Theme.spacing.xxl,
     marginBottom: Theme.spacing.lg,
@@ -40,13 +40,13 @@ export const styles = StyleSheet.create({
   searchIcon: {
     marginRight: Theme.spacing.sm,
     fontSize: Theme.fontSizes.md,
-    color: Theme.colors.greyMedium,
+    color: colors.greyMedium,
   },
   searchInput: {
     flex: 1,
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.greyDark,
+    color: colors.greyDark,
     padding: 0,
   },
   clearButton: {
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
   list: {
     paddingHorizontal: Theme.spacing.lg,
     paddingVertical: Theme.spacing.lg,
-    backgroundColor: Theme.colors.background2,
+    backgroundColor: colors.background2,
   },
   row: {
     justifyContent: 'flex-start',
@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
   emptyText: {
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyMedium,
+    color: colors.greyMedium,
   },
   footerLoader: {
     paddingVertical: Theme.spacing.lg,
@@ -83,17 +83,17 @@ export const styles = StyleSheet.create({
   },
 
   offlineBanner: {
-    backgroundColor: Theme.colors.redLight,
+    backgroundColor: colors.redLight,
     paddingVertical: Theme.spacing.sm,
     paddingHorizontal: Theme.spacing.xxl,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: Theme.colors.redMedium,
+    borderBottomColor: colors.redMedium,
   },
   offlineText: {
-    color: Theme.colors.redDark,
+    color: colors.redDark,
     fontFamily: Theme.fonts.semiBold,
     fontSize: Theme.fontSizes.sm,
     marginLeft: Theme.spacing.s,

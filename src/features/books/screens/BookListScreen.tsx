@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Theme } from '@/ui/theme';
-import { styles } from './BookListScreen.styles';
+import { useAppTheme } from '@/ui/theme';
+import { getStyles } from '@/features/books/screens/BookListScreen.styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
 import { useBooks } from '@/features/books/hooks';
@@ -32,6 +32,8 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
   const { genre } = route.params || { genre: 'Fiction' };
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => getStyles(colors), [colors]);
 
   const {
     books,
@@ -62,7 +64,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     if (!loading || books.length === 0 || refreshing) return null;
     return (
       <View style={styles.footerLoader}>
-        <ActivityIndicator size="small" color={Theme.colors.primary} />
+        <ActivityIndicator size="small" color={colors.primary} />
       </View>
     );
   };
@@ -71,7 +73,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     if (books.length === 0 && loading) {
       return (
         <View style={styles.center}>
-          <ActivityIndicator size="large" color={Theme.colors.primary} />
+          <ActivityIndicator size="large" color={colors.primary} />
         </View>
       );
     }
@@ -106,7 +108,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
           accessibilityRole="button"
           accessibilityLabel="Go back"
         >
-          <Icon name="arrow-back" size={24} color={Theme.colors.primary} />
+          <Icon name="arrow-back" size={24} color={colors.primary} />
         </TouchableOpacity>
         <Text style={styles.title} allowFontScaling={false}>
           {genre}
@@ -128,13 +130,13 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         <Icon
           name="search"
           size={18}
-          color={Theme.colors.greyMedium}
+          color={colors.greyMedium}
           style={styles.searchIcon}
         />
         <TextInput
           style={styles.searchInput}
           placeholder={BOOK_STRINGS.searchPlaceholder}
-          placeholderTextColor={Theme.colors.greyMedium}
+          placeholderTextColor={colors.greyMedium}
           value={searchQuery}
           onChangeText={setSearchQuery}
           allowFontScaling={false}
@@ -151,7 +153,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
             <Icon
               name="close-circle"
               size={20}
-              color={Theme.colors.greyMedium}
+              color={colors.greyMedium}
             />
           </TouchableOpacity>
         )}
@@ -180,8 +182,8 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            colors={[Theme.colors.primary]}
-            tintColor={Theme.colors.primary}
+            colors={[colors.primary]}
+            tintColor={colors.primary}
           />
         }
       />

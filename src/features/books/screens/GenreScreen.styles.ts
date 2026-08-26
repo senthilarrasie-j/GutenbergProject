@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '@/ui/theme';
+import { Theme, lightColors } from '@/ui/theme';
 
-export const styles = StyleSheet.create({
+export const getStyles = (colors: typeof lightColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.colors.background2,
+    backgroundColor: colors.background2,
   },
   header: {
     paddingTop: Theme.spacing.lg,
@@ -14,14 +14,14 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: Theme.fontSizes.hugeTitle,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.primary,
+    color: colors.primary,
     lineHeight: 52,
     marginBottom: Theme.spacing.lg,
   },
   subtitle: {
     fontSize: Theme.fontSizes.md,
     fontFamily: Theme.fonts.semiBold,
-    color: Theme.colors.greyDark,
+    color: colors.greyDark,
     lineHeight: 22,
   },
   list: {
@@ -33,3 +33,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
+

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { StyleSheet, Text, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Theme } from '@/ui/theme';
+import { Theme, useAppTheme, lightColors } from '@/ui/theme';
 
 interface SnackbarProps {
   visible: boolean;
@@ -10,6 +10,8 @@ interface SnackbarProps {
 }
 
 export const Snackbar: React.FC<SnackbarProps> = ({ visible, message, onDismiss }) => {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => getStyles(colors), [colors]);
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -43,25 +45,25 @@ export const Snackbar: React.FC<SnackbarProps> = ({ visible, message, onDismiss 
 
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY }], opacity }]}>
-      <Icon name="checkmark-circle" size={20} color={Theme.colors.white} style={styles.icon} />
+      <Icon name="checkmark-circle" size={20} color={colors.white} style={styles.icon} />
       <Text style={styles.text} allowFontScaling={false}>{message}</Text>
     </Animated.View>
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (colors: typeof lightColors) => StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 30,
     left: Theme.spacing.xxl,
     right: Theme.spacing.xxl,
-    backgroundColor: Theme.colors.success,
+    backgroundColor: colors.success,
     paddingVertical: Theme.spacing.md,
     paddingHorizontal: Theme.spacing.lg,
     borderRadius: Theme.spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: Theme.colors.black,
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 6,
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     marginRight: Theme.spacing.m,
   },
   text: {
-    color: Theme.colors.white,
+    color: colors.white,
     fontSize: Theme.fontSizes.sm,
     fontFamily: Theme.fonts.semiBold,
     flex: 1,

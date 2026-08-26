@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import { formatAuthorName } from '@/utils';
 import { Book } from '@/features/books/types';
-import { styles } from './BookCard.styles';
+import { getStyles } from '@/features/books/components/BookCard.styles';
+import { useAppTheme } from '@/ui/theme';
 
 interface BookCardProps {
   item: Book;
@@ -19,6 +20,8 @@ export const BookCard: React.FC<BookCardProps> = React.memo(
   ({ item, onPress }) => {
     const { width, height } = useWindowDimensions();
     const isLandscape = width > height;
+    const { colors } = useAppTheme();
+    const styles = useMemo(() => getStyles(colors), [colors]);
 
     return (
       <TouchableOpacity
@@ -56,3 +59,4 @@ export const BookCard: React.FC<BookCardProps> = React.memo(
     );
   },
 );
+

@@ -3,27 +3,29 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import AppNavigator from './src/navigation/AppNavigator';
-import { Theme } from './src/ui/theme';
-import { store } from './src/store';
-
-const NavigationTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: Theme.colors.primary,
-    background: Theme.colors.primaryLight,
-    card: Theme.colors.white,
-    text: Theme.colors.greyDark,
-    border: Theme.colors.greyLight,
-  },
-};
+import AppNavigator from '@/navigation/AppNavigator';
+import { useAppTheme } from '@/ui/theme';
+import { store } from '@/store';
 
 export default function App() {
+  const { colors, isDark } = useAppTheme();
+
+  const NavigationTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: colors.primary,
+      background: colors.background2,
+      card: colors.white,
+      text: colors.greyDark,
+      border: colors.greyLight,
+    },
+  };
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
         <NavigationContainer theme={NavigationTheme}>
           <AppNavigator />
         </NavigationContainer>
@@ -31,3 +33,4 @@ export default function App() {
     </Provider>
   );
 }
+
