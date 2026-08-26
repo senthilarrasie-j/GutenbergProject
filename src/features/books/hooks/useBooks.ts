@@ -11,6 +11,8 @@ export const useBooks = (genre: string) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
 
   const { books, loading, error, nextUrl, isOffline } = useSelector(
     (state: RootState) => state.books,
@@ -36,17 +38,16 @@ export const useBooks = (genre: string) => {
     }
   };
 
-  const handleRefresh = useCallback(() => {
-    dispatch(clearBooks());
-    dispatch(fetchBooks({ genre, search: searchQuery }));
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    const result = await dispatch(fetchBooks({ genre, search: searchQuery }));
+    setRefreshing(false);
+    if (fetchBooks.fulfilled.match(result)) {
+      setShowSnackbar(true);
+    }
   }, [dispatch, genre, searchQuery]);
 
   const handleBookPress = useCallback((book: Book) => {
-    // For testing modal (uncomment below to test):
-    // setModalMessage(BOOK_STRINGS.errorNoVersion);
-    // setModalVisible(true);
-    // return;
-
     try {
       const formats = book?.formats || {};
       const isNotZip = (url?: string) => !!url && !url.endsWith('.zip');
@@ -98,5 +99,8 @@ export const useBooks = (genre: string) => {
     modalVisible,
     setModalVisible,
     modalMessage,
+    refreshing,
+    showSnackbar,
+    setShowSnackbar,
   };
 };

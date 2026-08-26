@@ -4,15 +4,16 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  Modal,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store';
-import { styles, exitStyles } from './GenreScreen.styles';
+import { styles } from './GenreScreen.styles';
 import { setSelectedGenre } from '@/features/books/store';
 import { BOOK_STRINGS } from '@/features/books/constants';
 import { useExitApp } from '@/features/books/hooks';
+import { CustomModal } from '@/features/books/components';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
@@ -30,6 +31,8 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
   const genres = useSelector((state: RootState) => state.books.genres);
   const { exitModalVisible, handleExitApp, handleCancelExit } = useExitApp();
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   const handleGenreSelect = (genreTitle: string) => {
     dispatch(setSelectedGenre(genreTitle));
@@ -52,9 +55,15 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
         keyExtractor={item => item.id}
         contentContainerStyle={styles.list}
         ListHeaderComponent={renderHeader}
+        numColumns={isLandscape ? 2 : 1}
+        key={isLandscape ? 'landscape' : 'portrait'}
+        columnWrapperStyle={isLandscape ? styles.landscapeRow : undefined}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.card}
+            style={[
+              styles.card,
+              isLandscape && styles.landscapeCard
+            ]}
             activeOpacity={0.8}
             onPress={() => handleGenreSelect(item.title)}
             accessibilityRole="button"
@@ -68,37 +77,16 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
         )}
       />
 
-      <Modal
-        animationType="fade"
-        transparent={true}
+      <CustomModal
         visible={exitModalVisible}
-        onRequestClose={handleCancelExit}
-      >
-        <View style={exitStyles.modalOverlay}>
-          <View style={exitStyles.modalContent}>
-            <Text style={exitStyles.modalTitle} allowFontScaling={false}>Exit App</Text>
-            <Text style={exitStyles.modalText} allowFontScaling={false}>Do you want to exit the application?</Text>
-            <View style={exitStyles.buttonContainer}>
-              <TouchableOpacity
-                style={[exitStyles.button, exitStyles.cancelButton]}
-                onPress={handleCancelExit}
-                accessibilityRole="button"
-                accessibilityLabel="Cancel exit"
-              >
-                <Text style={exitStyles.cancelButtonText} allowFontScaling={false}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[exitStyles.button, exitStyles.confirmButton]}
-                onPress={handleExitApp}
-                accessibilityRole="button"
-                accessibilityLabel="Confirm exit"
-              >
-                <Text style={exitStyles.confirmButtonText} allowFontScaling={false}>Exit</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+        title="Exit App"
+        message="Do you want to exit the application?"
+        onClose={handleCancelExit}
+        buttons={[
+          { text: 'Cancel', onPress: handleCancelExit, type: 'cancel' },
+          { text: 'Exit', onPress: handleExitApp, type: 'primary' },
+        ]}
+      />
     </SafeAreaView>
   );
 };

@@ -7,8 +7,8 @@ import {
   TextInput,
   ActivityIndicator,
   Platform,
-  Modal,
   RefreshControl,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,7 +17,7 @@ import { styles } from './BookListScreen.styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
 import { useBooks } from '@/features/books/hooks';
-import { BookCard } from '@/features/books/components';
+import { BookCard, Snackbar, CustomModal } from '@/features/books/components';
 import { BOOK_STRINGS } from '@/features/books/constants';
 
 type BookListScreenProps = NativeStackScreenProps<
@@ -30,6 +30,8 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
   navigation,
 }) => {
   const { genre } = route.params || { genre: 'Fiction' };
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   const {
     books,
@@ -44,6 +46,9 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     modalVisible,
     setModalVisible,
     modalMessage,
+    refreshing,
+    showSnackbar,
+    setShowSnackbar,
   } = useBooks(genre);
 
 
@@ -55,7 +60,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
   );
 
   const renderFooter = () => {
-    if (!loading || books.length === 0) return null;
+    if (!loading || books.length === 0 || refreshing) return null;
     return (
       <View style={styles.footerLoader}>
         <ActivityIndicator size="small" color={Theme.colors.primary} />
@@ -137,7 +142,8 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         <FlatList
           data={books}
           keyExtractor={item => item.id.toString()}
-          numColumns={3}
+          numColumns={isLandscape ? 6 : 3}
+          key={isLandscape ? 'landscape' : 'portrait'}
           columnWrapperStyle={styles.row}
           contentContainerStyle={styles.list}
           onEndReached={handleLoadMore}
@@ -150,7 +156,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
           renderItem={renderItem}
           refreshControl={
             <RefreshControl
-              refreshing={loading && books.length > 0}
+              refreshing={refreshing}
               onRefresh={handleRefresh}
               colors={[Theme.colors.primary]}
               tintColor={Theme.colors.primary}
@@ -159,25 +165,17 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         />
       )}
 
-      <Modal
-        animationType="fade"
-        transparent={true}
+      <CustomModal
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle} allowFontScaling={false}>{BOOK_STRINGS.errorTitle}</Text>
-            <Text style={styles.modalText} allowFontScaling={false}>{modalMessage}</Text>
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.modalButtonText} allowFontScaling={false}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+        title={BOOK_STRINGS.errorTitle}
+        message={modalMessage}
+        onClose={() => setModalVisible(false)}
+      />
+      <Snackbar
+        visible={showSnackbar}
+        message="Books updated successfully!"
+        onDismiss={() => setShowSnackbar(false)}
+      />
     </SafeAreaView>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
-import { Theme } from '@/ui/theme';
+import { TouchableOpacity, Image, Text, useWindowDimensions } from 'react-native';
 import { formatAuthorName } from '@/utils';
 import { Book } from '@/features/books/types';
+import { styles } from './BookCard.styles';
 
 interface BookCardProps {
   item: Book;
@@ -11,9 +11,15 @@ interface BookCardProps {
 
 export const BookCard: React.FC<BookCardProps> = React.memo(
   ({ item, onPress }) => {
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
     return (
       <TouchableOpacity
-        style={styles.bookCard}
+        style={[
+          styles.bookCard,
+          isLandscape && styles.bookCardLandscape,
+        ]}
         activeOpacity={0.8}
         onPress={() => onPress(item)}
         accessibilityRole="button"
@@ -37,31 +43,3 @@ export const BookCard: React.FC<BookCardProps> = React.memo(
     );
   },
 );
-
-const styles = StyleSheet.create({
-  bookCard: {
-    flex: 1 / 3,
-    marginHorizontal: 8,
-    marginBottom: 20,
-    maxWidth: '30%',
-  },
-  bookImage: {
-    aspectRatio: 2 / 3,
-    width: '100%',
-    borderRadius: 8,
-    backgroundColor: Theme.colors.greyLight,
-    marginBottom: 8,
-  },
-  bookTitle: {
-    fontSize: 12,
-    fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyDark,
-    lineHeight: 14,
-    marginBottom: 2,
-  },
-  bookAuthor: {
-    fontSize: 12,
-    fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyMedium,
-  },
-});
