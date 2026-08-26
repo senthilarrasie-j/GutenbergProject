@@ -9,4 +9,5 @@ export const BOOK_STRINGS = {
   errorNoVersion: "No viewable version available",
   baseUrl: "https://gutendex.careers.ignitesol.com/books",
   failedToFetch: "Failed to fetch books",
+  noConnection: "No internet connection and no cached data.",
 };

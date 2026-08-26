@@ -123,4 +123,21 @@ export const styles = StyleSheet.create({
     fontFamily: Theme.fonts.semiBold,
     color: '#FFFFFF',
   },
+  offlineBanner: {
+    backgroundColor: '#FEE2E2',
+    paddingVertical: 8,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#FCA5A5',
+  },
+  offlineText: {
+    color: '#991B1B',
+    fontFamily: Theme.fonts.semiBold,
+    fontSize: 14,
+    marginLeft: 6,
+  },
 });
+

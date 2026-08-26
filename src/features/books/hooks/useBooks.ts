@@ -12,9 +12,10 @@ export const useBooks = (genre: string) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
 
-  const { books, loading, error, nextUrl } = useSelector(
+  const { books, loading, error, nextUrl, isOffline } = useSelector(
     (state: RootState) => state.books,
   );
+
 
   useEffect(() => {
     dispatch(clearBooks());
@@ -83,6 +84,7 @@ export const useBooks = (genre: string) => {
     books,
     loading,
     error,
+    isOffline,
     searchQuery,
     setSearchQuery,
     handleLoadMore,

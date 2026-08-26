@@ -27,6 +27,8 @@ interface BooksState {
   searchQuery: string;
   selectedGenre: string;
   genres: Array<{ id: string; title: string; query: string }>;
+  isOffline: boolean;
 }
+
 
 export type { Book, GutendexResponse, BooksState };

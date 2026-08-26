@@ -34,6 +34,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     books,
     loading,
     error,
+    isOffline,
     searchQuery,
     setSearchQuery,
     handleLoadMore,
@@ -42,6 +43,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     setModalVisible,
     modalMessage,
   } = useBooks(genre);
+
 
   const renderItem = useCallback(
     ({ item }: any) => {
@@ -71,6 +73,15 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         </TouchableOpacity>
         <Text style={styles.title}>{genre}</Text>
       </View>
+
+      {/* Offline Banner */}
+      {isOffline && (
+        <View style={styles.offlineBanner}>
+          <Icon name="cloud-offline" size={16} color="#991B1B" />
+          <Text style={styles.offlineText}>Viewing offline cached data</Text>
+        </View>
+      )}
+
 
       {/* Search Input */}
       <View style={styles.searchContainer}>
