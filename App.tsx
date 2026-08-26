@@ -26,7 +26,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+        {/* <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} /> */}
+
+        <StatusBar barStyle={'dark-content'} />
         <NavigationContainer theme={NavigationTheme}>
           <AppNavigator />
         </NavigationContainer>
@@ -34,4 +36,3 @@ export default function App() {
     </Provider>
   );
 }
-

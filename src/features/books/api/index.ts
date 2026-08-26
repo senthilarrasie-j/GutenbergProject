@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GutendexResponse } from '@/features/books/types';
 import { BOOK_STRINGS } from '@/features/books/constants';
+import { NEXT_URL_TARGET, NEXT_URL_REPLACEMENT } from '@env';
 
 const BASE_URL = BOOK_STRINGS.baseUrl;
 
@@ -18,10 +19,9 @@ export const fetchBooksApi = async ({ genre, search, nextUrl }: FetchBooksArgs) 
   };
 
   if (nextUrl) {
-    const secureUrl = nextUrl.replace(
-      'http://gutendex-api:8974',
-      'https://gutendex.careers.ignitesol.com',
-    );
+    const target = NEXT_URL_TARGET || 'http://gutendex-api:8974';
+    const replacement = NEXT_URL_REPLACEMENT || 'https://gutendex.careers.ignitesol.com';
+    const secureUrl = nextUrl.replace(target, replacement);
     console.log('Fetching nextUrl:', secureUrl);
     const response = await axios.get<GutendexResponse>(secureUrl, config);
     console.log('NextUrl response data:', response.data);
