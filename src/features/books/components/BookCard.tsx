@@ -9,30 +9,34 @@ interface BookCardProps {
   onPress: (book: Book) => void;
 }
 
-export const BookCard: React.FC<BookCardProps> = React.memo(({ item, onPress }) => {
-  return (
-    <TouchableOpacity
-      style={styles.bookCard}
-      activeOpacity={0.8}
-      onPress={() => onPress(item)}
-    >
-      <Image
-        source={{
-          uri:
-            item.formats['image/jpeg'] ||
-            'https://placehold.co/150x225.png?text=No+Cover',
-        }}
-        style={styles.bookImage}
-      />
-      <Text style={styles.bookTitle} numberOfLines={2}>
-        {item.title.toUpperCase()}
-      </Text>
-      <Text style={styles.bookAuthor} numberOfLines={1}>
-        {formatAuthorName(item.authors[0]?.name)}
-      </Text>
-    </TouchableOpacity>
-  );
-});
+export const BookCard: React.FC<BookCardProps> = React.memo(
+  ({ item, onPress }) => {
+    return (
+      <TouchableOpacity
+        style={styles.bookCard}
+        activeOpacity={0.8}
+        onPress={() => onPress(item)}
+        accessibilityRole="button"
+        accessibilityLabel={`${item.title} by ${formatAuthorName(item.authors[0]?.name) || 'Unknown Author'}`}
+      >
+        <Image
+          source={{
+            uri:
+              item.formats['image/jpeg'] ||
+              'https://placehold.co/150x225.png?text=No+Cover',
+          }}
+          style={styles.bookImage}
+        />
+        <Text style={styles.bookTitle} numberOfLines={2} allowFontScaling={false}>
+          {item.title.toUpperCase()}
+        </Text>
+        <Text style={styles.bookAuthor} numberOfLines={1} allowFontScaling={false}>
+          {formatAuthorName(item.authors[0]?.name)}
+        </Text>
+      </TouchableOpacity>
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   bookCard: {
@@ -49,14 +53,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   bookTitle: {
-    fontSize: 11,
-    fontFamily: Theme.fonts.semiBold,
+    fontSize: 12,
+    fontFamily: Theme.fonts.regular,
     color: Theme.colors.greyDark,
-    lineHeight: 13,
+    lineHeight: 14,
     marginBottom: 2,
   },
   bookAuthor: {
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: Theme.fonts.regular,
     color: Theme.colors.greyMedium,
   },

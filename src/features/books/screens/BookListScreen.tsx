@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Platform,
   Modal,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -38,6 +39,7 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     searchQuery,
     setSearchQuery,
     handleLoadMore,
+    handleRefresh,
     handleBookPress,
     modalVisible,
     setModalVisible,
@@ -68,17 +70,19 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
         >
-          <Text style={styles.backArrow}>←</Text>
+          <Text style={styles.backArrow} allowFontScaling={false}>←</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>{genre}</Text>
+        <Text style={styles.title} allowFontScaling={false}>{genre}</Text>
       </View>
 
       {/* Offline Banner */}
       {isOffline && (
         <View style={styles.offlineBanner}>
           <Icon name="cloud-offline" size={16} color="#991B1B" />
-          <Text style={styles.offlineText}>Viewing offline cached data</Text>
+          <Text style={styles.offlineText} allowFontScaling={false}>Viewing offline cached data</Text>
         </View>
       )}
 
@@ -97,11 +101,16 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
           placeholderTextColor={Theme.colors.greyMedium}
           value={searchQuery}
           onChangeText={setSearchQuery}
+          allowFontScaling={false}
+          accessibilityRole="search"
+          accessibilityLabel="Search books"
         />
         {searchQuery.length > 0 && (
           <TouchableOpacity
             onPress={() => setSearchQuery('')}
             style={styles.clearButton}
+            accessibilityRole="button"
+            accessibilityLabel="Clear search text"
           >
             <Icon
               name="close-circle"
@@ -118,11 +127,11 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         </View>
       ) : error ? (
         <View style={styles.center}>
-          <Text style={styles.errorText}>{error}</Text>
+          <Text style={styles.errorText} allowFontScaling={false}>{error}</Text>
         </View>
       ) : books.length === 0 ? (
         <View style={styles.center}>
-          <Text style={styles.emptyText}>{BOOK_STRINGS.noBooksFound}</Text>
+          <Text style={styles.emptyText} allowFontScaling={false}>{BOOK_STRINGS.noBooksFound}</Text>
         </View>
       ) : (
         <FlatList
@@ -139,6 +148,14 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
           windowSize={5}
           removeClippedSubviews={Platform.OS === 'android'}
           renderItem={renderItem}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading && books.length > 0}
+              onRefresh={handleRefresh}
+              colors={[Theme.colors.primary]}
+              tintColor={Theme.colors.primary}
+            />
+          }
         />
       )}
 
@@ -150,13 +167,13 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>{BOOK_STRINGS.errorTitle}</Text>
-            <Text style={styles.modalText}>{modalMessage}</Text>
+            <Text style={styles.modalTitle} allowFontScaling={false}>{BOOK_STRINGS.errorTitle}</Text>
+            <Text style={styles.modalText} allowFontScaling={false}>{modalMessage}</Text>
             <TouchableOpacity
               style={styles.modalButton}
               onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.modalButtonText}>Close</Text>
+              <Text style={styles.modalButtonText} allowFontScaling={false}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>

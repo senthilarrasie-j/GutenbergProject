@@ -36,6 +36,11 @@ export const useBooks = (genre: string) => {
     }
   };
 
+  const handleRefresh = useCallback(() => {
+    dispatch(clearBooks());
+    dispatch(fetchBooks({ genre, search: searchQuery }));
+  }, [dispatch, genre, searchQuery]);
+
   const handleBookPress = useCallback((book: Book) => {
     // For testing modal (uncomment below to test):
     // setModalMessage(BOOK_STRINGS.errorNoVersion);
@@ -88,6 +93,7 @@ export const useBooks = (genre: string) => {
     searchQuery,
     setSearchQuery,
     handleLoadMore,
+    handleRefresh,
     handleBookPress,
     modalVisible,
     setModalVisible,

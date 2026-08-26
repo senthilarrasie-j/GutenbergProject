@@ -60,3 +60,66 @@ export const styles = StyleSheet.create({
     fontFamily: Theme.fonts.semiBold,
   },
 });
+
+export const exitStyles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    padding: 24,
+    alignItems: 'center',
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontFamily: Theme.fonts.semiBold,
+    color: Theme.colors.primary,
+    marginBottom: 12,
+  },
+  modalText: {
+    fontSize: 16,
+    fontFamily: Theme.fonts.regular,
+    color: Theme.colors.greyDark,
+    textAlign: 'center',
+    marginBottom: 20,
+    lineHeight: 22,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  button: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 4,
+    alignItems: 'center',
+    marginHorizontal: 8,
+  },
+  cancelButton: {
+    backgroundColor: Theme.colors.greyLight,
+  },
+  confirmButton: {
+    backgroundColor: Theme.colors.primary,
+  },
+  cancelButtonText: {
+    fontSize: 16,
+    fontFamily: Theme.fonts.semiBold,
+    color: Theme.colors.greyDark,
+  },
+  confirmButtonText: {
+    fontSize: 16,
+    fontFamily: Theme.fonts.semiBold,
+    color: '#FFFFFF',
+  },
+});
