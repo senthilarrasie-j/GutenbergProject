@@ -7,3 +7,14 @@ export const BOOK_GENRES = [
   { id: '6', title: 'History', query: 'history' },
   { id: '7', title: 'Adventure', query: 'adventure' },
 ];
+
+export const GENRE_ICONS: Record<string, string> = {
+  fiction: '🧪',
+  drama: '🎭',
+  humor: '😂',
+  politics: '🏛️',
+  philosophy: '🧠',
+  history: '📜',
+  adventure: '🧭',
+};
+

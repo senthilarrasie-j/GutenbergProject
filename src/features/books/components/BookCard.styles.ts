@@ -4,8 +4,8 @@ import { Theme } from '@/ui/theme';
 export const styles = StyleSheet.create({
   bookCard: {
     flex: 1 / 3,
-    marginHorizontal: 8,
-    marginBottom: 20,
+    marginHorizontal: Theme.spacing.sm,
+    marginBottom: Theme.spacing.xl,
     maxWidth: '30%',
   },
   bookCardLandscape: {
@@ -15,19 +15,26 @@ export const styles = StyleSheet.create({
   bookImage: {
     aspectRatio: 2 / 3,
     width: '100%',
-    borderRadius: 8,
+    borderRadius: Theme.spacing.sm,
     backgroundColor: Theme.colors.greyLight,
-    marginBottom: 8,
+    marginBottom: Theme.spacing.sm,
+    // iOS shadow
+    shadowColor: 'rgb(211, 209, 238)',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    // Android shadow
+    elevation: 3,
   },
   bookTitle: {
-    fontSize: 12,
+    fontSize: Theme.fontSizes.xs,
     fontFamily: Theme.fonts.regular,
     color: Theme.colors.greyDark,
     lineHeight: 14,
     marginBottom: 2,
   },
   bookAuthor: {
-    fontSize: 12,
+    fontSize: Theme.fontSizes.xs,
     fontFamily: Theme.fonts.regular,
     color: Theme.colors.greyMedium,
   },

@@ -13,7 +13,7 @@ import { styles } from './GenreScreen.styles';
 import { setSelectedGenre } from '@/features/books/store';
 import { BOOK_STRINGS } from '@/features/books/constants';
 import { useExitApp } from '@/features/books/hooks';
-import { CustomModal } from '@/features/books/components';
+import { CustomModal, GenreCard } from '@/features/books/components';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/navigation/AppNavigator';
@@ -41,7 +41,9 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
 
   const renderHeader = () => (
     <View style={styles.header}>
-      <Text style={styles.title} allowFontScaling={false}>{BOOK_STRINGS.headerTitle}</Text>
+      <Text style={styles.title} allowFontScaling={false}>
+        {BOOK_STRINGS.headerTitle}
+      </Text>
       <Text style={styles.subtitle} allowFontScaling={false}>
         {BOOK_STRINGS.headerSubtitle}
       </Text>
@@ -59,21 +61,7 @@ const GenreScreen: React.FC<Props> = ({ navigation }) => {
         key={isLandscape ? 'landscape' : 'portrait'}
         columnWrapperStyle={isLandscape ? styles.landscapeRow : undefined}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={[
-              styles.card,
-              isLandscape && styles.landscapeCard
-            ]}
-            activeOpacity={0.8}
-            onPress={() => handleGenreSelect(item.title)}
-            accessibilityRole="button"
-            accessibilityLabel={`Genre ${item.title}`}
-          >
-            <View style={styles.cardLeft}>
-              <Text style={styles.cardText} allowFontScaling={false}>{item.title.toUpperCase()}</Text>
-            </View>
-            <Text style={styles.arrow} allowFontScaling={false}>→</Text>
-          </TouchableOpacity>
+          <GenreCard item={item} onPress={handleGenreSelect} />
         )}
       />
 

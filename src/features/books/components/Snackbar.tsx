@@ -43,7 +43,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({ visible, message, onDismiss 
 
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY }], opacity }]}>
-      <Icon name="checkmark-circle" size={20} color="#FFFFFF" style={styles.icon} />
+      <Icon name="checkmark-circle" size={20} color={Theme.colors.white} style={styles.icon} />
       <Text style={styles.text} allowFontScaling={false}>{message}</Text>
     </Animated.View>
   );
@@ -53,15 +53,15 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 30,
-    left: 24,
-    right: 24,
-    backgroundColor: '#10B981',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    left: Theme.spacing.xxl,
+    right: Theme.spacing.xxl,
+    backgroundColor: Theme.colors.success,
+    paddingVertical: Theme.spacing.md,
+    paddingHorizontal: Theme.spacing.lg,
+    borderRadius: Theme.spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: '#000000',
+    shadowColor: Theme.colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 6,
@@ -69,11 +69,11 @@ const styles = StyleSheet.create({
     zIndex: 9999,
   },
   icon: {
-    marginRight: 10,
+    marginRight: Theme.spacing.m,
   },
   text: {
-    color: '#FFFFFF',
-    fontSize: 14,
+    color: Theme.colors.white,
+    fontSize: Theme.fontSizes.sm,
     fontFamily: Theme.fonts.semiBold,
     flex: 1,
   },

@@ -51,7 +51,6 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     setShowSnackbar,
   } = useBooks(genre);
 
-
   const renderItem = useCallback(
     ({ item }: any) => {
       return <BookCard item={item} onPress={handleBookPress} />;
@@ -68,6 +67,35 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
     );
   };
 
+  const renderEmpty = () => {
+    if (books.length === 0 && loading) {
+      return (
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color={Theme.colors.primary} />
+        </View>
+      );
+    }
+    if (error) {
+      return (
+        <View style={styles.center}>
+          <Text style={styles.errorText} allowFontScaling={false}>
+            {error}
+          </Text>
+        </View>
+      );
+    }
+    if (books.length === 0) {
+      return (
+        <View style={styles.center}>
+          <Text style={styles.emptyText} allowFontScaling={false}>
+            {BOOK_STRINGS.noBooksFound}
+          </Text>
+        </View>
+      );
+    }
+    return null;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -78,19 +106,22 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
           accessibilityRole="button"
           accessibilityLabel="Go back"
         >
-          <Text style={styles.backArrow} allowFontScaling={false}>←</Text>
+          <Icon name="arrow-back" size={24} color={Theme.colors.primary} />
         </TouchableOpacity>
-        <Text style={styles.title} allowFontScaling={false}>{genre}</Text>
+        <Text style={styles.title} allowFontScaling={false}>
+          {genre}
+        </Text>
       </View>
 
       {/* Offline Banner */}
       {isOffline && (
         <View style={styles.offlineBanner}>
           <Icon name="cloud-offline" size={16} color="#991B1B" />
-          <Text style={styles.offlineText} allowFontScaling={false}>Viewing offline cached data</Text>
+          <Text style={styles.offlineText} allowFontScaling={false}>
+            Viewing offline cached data
+          </Text>
         </View>
       )}
-
 
       {/* Search Input */}
       <View style={styles.searchContainer}>
@@ -126,44 +157,34 @@ const BookListScreen: React.FC<BookListScreenProps> = ({
         )}
       </View>
 
-      {books.length === 0 && loading ? (
-        <View style={styles.center}>
-          <ActivityIndicator size="large" color={Theme.colors.primary} />
-        </View>
-      ) : error ? (
-        <View style={styles.center}>
-          <Text style={styles.errorText} allowFontScaling={false}>{error}</Text>
-        </View>
-      ) : books.length === 0 ? (
-        <View style={styles.center}>
-          <Text style={styles.emptyText} allowFontScaling={false}>{BOOK_STRINGS.noBooksFound}</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={books}
-          keyExtractor={item => item.id.toString()}
-          numColumns={isLandscape ? 6 : 3}
-          key={isLandscape ? 'landscape' : 'portrait'}
-          columnWrapperStyle={styles.row}
-          contentContainerStyle={styles.list}
-          onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={renderFooter}
-          initialNumToRender={12}
-          maxToRenderPerBatch={12}
-          windowSize={5}
-          removeClippedSubviews={Platform.OS === 'android'}
-          renderItem={renderItem}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-              colors={[Theme.colors.primary]}
-              tintColor={Theme.colors.primary}
-            />
-          }
-        />
-      )}
+      <FlatList
+        data={books}
+        keyExtractor={item => item.id.toString()}
+        numColumns={isLandscape ? 6 : 3}
+        key={isLandscape ? 'landscape' : 'portrait'}
+        columnWrapperStyle={books.length > 0 ? styles.row : undefined}
+        contentContainerStyle={[
+          styles.list,
+          books.length === 0 && { flexGrow: 1 },
+        ]}
+        ListEmptyComponent={renderEmpty}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={renderFooter}
+        initialNumToRender={12}
+        maxToRenderPerBatch={12}
+        windowSize={5}
+        removeClippedSubviews={Platform.OS === 'android'}
+        renderItem={renderItem}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            colors={[Theme.colors.primary]}
+            tintColor={Theme.colors.primary}
+          />
+        }
+      />
 
       <CustomModal
         visible={modalVisible}

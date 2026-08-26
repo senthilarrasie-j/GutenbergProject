@@ -13,7 +13,7 @@ const NavigationTheme = {
     ...DefaultTheme.colors,
     primary: Theme.colors.primary,
     background: Theme.colors.primaryLight,
-    card: '#FFFFFF',
+    card: Theme.colors.white,
     text: Theme.colors.greyDark,
     border: Theme.colors.greyLight,
   },

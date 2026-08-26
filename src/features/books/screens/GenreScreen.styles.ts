@@ -4,69 +4,32 @@ import { Theme } from '@/ui/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.colors.background,
+    backgroundColor: Theme.colors.background2,
   },
   header: {
-    paddingTop: 16,
-    paddingBottom: 24,
-    backgroundColor: Theme.colors.background,
+    paddingTop: Theme.spacing.lg,
+    paddingBottom: Theme.spacing.xxl,
+    backgroundColor: 'transparent',
   },
   title: {
-    fontSize: 48,
+    fontSize: Theme.fontSizes.hugeTitle,
     fontFamily: Theme.fonts.semiBold,
     color: Theme.colors.primary,
     lineHeight: 52,
-    marginBottom: 16,
+    marginBottom: Theme.spacing.lg,
   },
   subtitle: {
-    fontSize: 16,
-    fontFamily: Theme.fonts.regular,
+    fontSize: Theme.fontSizes.md,
+    fontFamily: Theme.fonts.semiBold,
     color: Theme.colors.greyDark,
     lineHeight: 22,
   },
   list: {
-    paddingHorizontal: 24,
-    paddingBottom: 32,
-  },
-  card: {
-    backgroundColor: '#FFFFFF',
-    height: 50,
-    borderRadius: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    marginBottom: 12,
-    // iOS shadow
-    shadowColor: 'rgb(211, 209, 238)',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    // Android shadow
-    elevation: 3,
-  },
-  cardLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  cardText: {
-    fontSize: 20,
-    fontFamily: Theme.fonts.regular,
-    color: Theme.colors.greyDark,
-  },
-  arrow: {
-    fontSize: 18,
-    color: Theme.colors.primary,
-    fontFamily: Theme.fonts.semiBold,
-  },
-  landscapeCard: {
-    flex: 1,
-    maxWidth: '48%',
-    marginHorizontal: 4,
+    paddingHorizontal: Theme.spacing.xxl,
+    paddingBottom: Theme.spacing.xxxl,
+    backgroundColor: 'transparent',
   },
   landscapeRow: {
     justifyContent: 'space-between',
   },
 });
-
-
