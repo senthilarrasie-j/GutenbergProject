@@ -1,6 +1,6 @@
 # Gutenberg Project
 
-This app contains a responsive React Native mobile cataloging application built using the Gutendex API. Users can browse books by genre, search by title/author, read books in their browser, and toggle themes and languages automatically.
+This app contains a responsive React Native mobile cataloging application built using the open-source Gutendex API. Users can browse books by genre, search by title/author, read books in their browser, and toggle themes and languages automatically.
 
 ---
 
@@ -63,8 +63,13 @@ This app is a social cataloging client for the Gutendex API (hosted Project Gute
 
 ### 1. Installation
 
-Clone the repository and install npm packages:
+Clone the repository:
+```bash
+git clone https://github.com/starjs-1508/GutenbergProject.git
+cd GutenbergProject
+```
 
+Install npm packages:
 ```bash
 npm install
 ```
@@ -173,7 +178,7 @@ src/
 
 ## 🔌 API Integration & Query Handling
 
-The app communicates with the Gutendex REST API at `/books`. Different query parameters are dynamically managed to satisfy specific filtering, search, and page loading states:
+The app communicates with the open-source Gutendex REST API at `/books`. Different query parameters are dynamically managed to satisfy specific filtering, search, and page loading states:
 
 1. **Genre Filtering (`topic`)**:
    - Parameter name: `topic`
