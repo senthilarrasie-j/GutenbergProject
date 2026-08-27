@@ -6,11 +6,30 @@ This app contains a responsive React Native mobile cataloging application built 
 
 ## 📱 Demo Video & Screenshots
 
-> [!IMPORTANT] > **Demo Video Requirement**:
-> As per the submission instructions, the demo video demonstrating both portrait and landscape layouts must be placed here.
->
-> Example markdown link for video file:
-> `![Demo Video](./demo_video.mp4)`
+### Demo Video
+
+Watch the demo video demonstrating both portrait and landscape layouts:
+
+![Demo Video](./screenshots,video,apk/GutenbergProject_RNApp.mp4)
+
+### 📦 Android APK
+
+Download the pre-built release APK:
+- [GutenbergProject.apk](./screenshots,video,apk/GutenbergProject.apk)
+
+### Screenshots
+
+#### Genre Listing
+![Genre Listing](./screenshots,video,apk/GenreListing.jpeg)
+
+#### Books Listing
+![Books Listing](./screenshots,video,apk/BooksListing.jpeg)
+
+#### Search & Filter
+![Search & Filter](./screenshots,video,apk/BooksListing_search.jpeg)
+
+#### Web Reader
+![Web Reader](./screenshots,video,apk/webview.jpeg)
 
 ---
 
