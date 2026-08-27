@@ -2,7 +2,10 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { GenreCard } from '@/features/books/components/GenreCard';
 
-jest.mock('react-native-vector-icons/Ionicons', () => 'Icon');
+jest.mock('react-native-vector-icons/Ionicons', () => {
+  const { Text } = require('react-native');
+  return (props: any) => <Text>{props.name}</Text>;
+});
 
 const mockItem = { id: '1', title: 'Fiction' };
 
@@ -14,19 +17,19 @@ describe('GenreCard', () => {
     expect(getByText('FICTION')).toBeTruthy();
   });
 
-  it('renders emoji for known genre', async () => {
+  it('renders icon for known genre', async () => {
     const { getByText } = await render(
       <GenreCard item={mockItem} onPress={jest.fn()} />,
     );
-    // fiction emoji is 🧪
-    expect(getByText('🧪')).toBeTruthy();
+    // fiction icon is flask-outline
+    expect(getByText('flask-outline')).toBeTruthy();
   });
 
-  it('renders fallback emoji for unknown genre', async () => {
+  it('renders fallback icon for unknown genre', async () => {
     const { getByText } = await render(
       <GenreCard item={{ id: '99', title: 'Unknown' }} onPress={jest.fn()} />,
     );
-    expect(getByText('📖')).toBeTruthy();
+    expect(getByText('book-outline')).toBeTruthy();
   });
 
   it('calls onPress with genre title on press', async () => {
