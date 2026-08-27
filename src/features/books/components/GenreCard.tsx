@@ -19,7 +19,7 @@ export const GenreCard: React.FC<GenreCardProps> = React.memo(({ item, onPress }
   const { colors } = useAppTheme();
   const styles = useMemo(() => getStyles(colors), [colors]);
 
-  const emoji = GENRE_ICONS[item.title.toLowerCase()] || '📖';
+  const iconName = GENRE_ICONS[item.title.toLowerCase()] || 'book-outline';
 
   return (
     <TouchableOpacity
@@ -30,9 +30,12 @@ export const GenreCard: React.FC<GenreCardProps> = React.memo(({ item, onPress }
       accessibilityLabel={`Genre ${item.title}`}
     >
       <View style={styles.cardLeft}>
-        <Text style={styles.genreIcon} allowFontScaling={false}>
-          {emoji}
-        </Text>
+        <Icon
+          name={iconName}
+          size={24}
+          color={colors.primary}
+          style={styles.genreIcon}
+        />
         <Text style={styles.cardText} allowFontScaling={false}>
           {item.title.toUpperCase()}
         </Text>

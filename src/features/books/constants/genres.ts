@@ -9,12 +9,12 @@ export const BOOK_GENRES = [
 ];
 
 export const GENRE_ICONS: Record<string, string> = {
-  fiction: '🧪',
-  drama: '🎭',
-  humor: '😂',
-  politics: '🏛️',
-  philosophy: '🧠',
-  history: '📜',
-  adventure: '🧭',
+  fiction: 'flask-outline',
+  drama: 'film-outline',
+  humor: 'happy-outline',
+  politics: 'podium-outline',
+  philosophy: 'bulb-outline',
+  history: 'hourglass-outline',
+  adventure: 'compass-outline',
 };
 
